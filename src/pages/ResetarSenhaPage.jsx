@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import API_BASE_URL from '../config/api';
 
 const ResetarSenhaPage = () => {
   const [email, setEmail] = useState('');
@@ -6,7 +7,7 @@ const ResetarSenhaPage = () => {
   const handleResetar = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:8090/api/usuarios/resetar-senha', {
+      const response = await fetch(`${API_BASE_URL}/api/usuarios/resetar-senha`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email }),

@@ -14,6 +14,7 @@ import { AuthProvider, AuthContext } from './context/AuthContext';
 import PrivateRoute from './routes/PrivateRoute';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import API_BASE_URL from './config/api';
 
 const AppContent = () => {
   const [registros, setRegistros] = useState([]);
@@ -21,7 +22,7 @@ const AppContent = () => {
 
   const carregarTodos = async () => {
       console.log("Login com token:", token);
-    const response = await fetch('http://localhost:8090/api/consultarOrdem', {
+    const response = await fetch(`${API_BASE_URL}/api/consultarOrdem`, {
       headers: {
         Authorization: token,
       },
@@ -51,8 +52,8 @@ const handleUpload = async (file, tipoRelatorio) => {
   // Define rota com base no tipo selecionado
   const endpoint =
     tipoRelatorio === 'transacao'
-      ? 'http://localhost:8090/api/importarTransacao'
-      : 'http://localhost:8090/api/importarOrdem';
+      ? `${API_BASE_URL}/api/importarTransacao`
+      : `${API_BASE_URL}/api/importarOrdem`;
 
   const response = await fetch(endpoint, {
     method: 'POST',
@@ -77,8 +78,8 @@ const handleUpload = async (file, tipoRelatorio) => {
           const params = new URLSearchParams(filtros);
       const endpoint =
                     tipo === 'transacao'
-                    ? "http://localhost:8090/api/consultarTransacao"
-                    : "http://localhost:8090/api/consultarOrdem";
+                    ? `${API_BASE_URL}/api/consultarTransacao`
+                    : `${API_BASE_URL}/api/consultarOrdem`;
       const url = `${endpoint}?${params.toString()}`;
     const response = await fetch(url, {
       headers: {

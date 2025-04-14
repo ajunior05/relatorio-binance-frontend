@@ -1,0 +1,25 @@
+# Ignorar dependências do node
+node_modules
+npm-debug.log
+
+# Ignorar os arquivos de build local (não são necessários no contêiner)
+build/
+
+# Ignorar arquivos de configuração locais, exceto .env
+.env.local
+.env.development
+.env.test
+.env.production
+!.env  # Inclui explicitamente o .env
+
+# Ignorar arquivos de versionamento
+.git
+.gitignore
+
+# Ignorar arquivos temporários
+.idea
+.vscode
+
+# Ignorar o próprio Dockerfile e docker-compose.yml
+Dockerfile
+docker-compose.yml

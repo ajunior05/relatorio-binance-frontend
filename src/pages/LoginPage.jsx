@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { motion } from 'framer-motion';
 import { AuthContext } from '../context/AuthContext'; // ✅ Importa o contexto
+import API_BASE_URL from '../config/api';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -19,7 +20,7 @@ const LoginPage = () => {
     }
 
     try {
-      const res = await fetch('http://localhost:8090/api/usuarios/login', {
+      const res = await fetch(`${API_BASE_URL}/api/usuarios/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, senha }),

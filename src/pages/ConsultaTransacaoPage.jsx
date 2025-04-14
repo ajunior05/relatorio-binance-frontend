@@ -4,13 +4,14 @@ import { motion } from 'framer-motion';
 import { FaSearch } from 'react-icons/fa';
 import FiltroTransacaoForm from '../components/FiltroTransacaoForm';
 import RelatorioTransacaoTabela from '../components/RelatorioTransacaoTabela';
+import API_BASE_URL from '../config/api';
 
 const ConsultaTransacaoPage = ({ registros, setRegistros, onFilter }) => {
 
   useEffect(() => {
     const carregarTodos = async () => {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:8090/api/consultarTransacao', {
+      const response = await fetch(`${API_BASE_URL}/api/consultarTransacao`, {
         headers: {
           Authorization: token // <-- corrigido!
         }

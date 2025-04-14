@@ -4,13 +4,14 @@ import { motion } from 'framer-motion';
 import { FaSearch } from 'react-icons/fa';
 import FiltroForm from '../components/FiltroForm';
 import RelatorioOrdemTabela from '../components/RelatorioOrdemTabela';
+import API_BASE_URL from '../config/api';
 
 const ConsultaPage = ({ registros, setRegistros, onFilter }) => {
 
   useEffect(() => {
     const carregarTodos = async () => {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:8090/api/consultarOrdem', {
+      const response = await fetch(`${API_BASE_URL}/api/consultarOrdem`, {
         headers: {
           Authorization: token // <-- corrigido!
         }
