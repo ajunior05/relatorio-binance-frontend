@@ -15,6 +15,8 @@ console.log("Auth?", isAuthenticated);
             <NavLink to="/upload" className="btn btn-outline-primary mx-2">Upload</NavLink>
             <NavLink to="/consultarOrdem" className="btn btn-outline-success mx-2">Consultar Ordem</NavLink>
             <NavLink to="/consultarTransacao" className="btn btn-outline-success mx-2">Consultar Transação</NavLink>
+            <NavLink to="/consultarNomad" className="btn btn-outline-success mx-2">Consultar Relatórios Nomad</NavLink>
+            <NavLink to="/consultarPares" className="btn btn-outline-success mx-2">Consultar Pares</NavLink>
             <Button variant="danger" onClick={logout}>Logout</Button>
           </>
         ) : (

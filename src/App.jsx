@@ -6,6 +6,8 @@ import Home from './pages/Home';
 import UploadPage from './pages/UploadPage';
 import ConsultaPage from './pages/ConsultaPage';
 import ConsultaTransacaoPage from './pages/ConsultaTransacaoPage';
+import ConsultaNomadPage from './pages/ConsultaNomadPage';
+import ConsultaParesPage from './pages/ConsultaParesPage';
 import NotFound from './pages/NotFound';
 import LoginPage from './pages/LoginPage';
 import CadastroPage from './pages/CadastroPage';
@@ -41,19 +43,32 @@ const AppContent = () => {
 
   useEffect(() => {
     if (token) {
-      carregarTodos();
+     // carregarTodos();
     }
   }, [token]);
 
-const handleUpload = async (file, tipoRelatorio) => {
+const handleUpload = async (file, tipoRelatorio,corretora) => {
   const formData = new FormData();
   formData.append('arquivo', file);
 
   // Define rota com base no tipo selecionado
-  const endpoint =
+  let endpoint;
+
+  if (corretora === 'binance') {
+    endpoint =
+      tipoRelatorio === 'transacao'
+        ? `${API_BASE_URL}/api/importarTransacao`
+        : `${API_BASE_URL}/api/importarOrdem`;
+  } else if (corretora === 'nomad') {
+    endpoint =`${API_BASE_URL}/api/importarNomad`;
+  } else {
+    toast.error('Corretora não selecionada ou inválida.');
+    return;
+  }
+/*   const endpoint =
     tipoRelatorio === 'transacao'
       ? `${API_BASE_URL}/api/importarTransacao`
-      : `${API_BASE_URL}/api/importarOrdem`;
+      : `${API_BASE_URL}/api/importarOrdem`; */
 
   const response = await fetch(endpoint, {
     method: 'POST',
@@ -76,11 +91,22 @@ const handleUpload = async (file, tipoRelatorio) => {
 
   const handleFilter = async (filtros,tipo) => {
           const params = new URLSearchParams(filtros);
-      const endpoint =
-                    tipo === 'transacao'
-                    ? `${API_BASE_URL}/api/consultarTransacao`
-                    : `${API_BASE_URL}/api/consultarOrdem`;
-      const url = `${endpoint}?${params.toString()}`;
+  // Define rota com base no tipo selecionado
+  let endpoint;
+        if ((tipo == 'transacao') || (tipo == 'ordem')) {
+          endpoint =
+            tipo === 'transacao'
+              ? `${API_BASE_URL}/api/consultarTransacao`
+              : `${API_BASE_URL}/api/consultarOrdem`;
+        } else if (tipo === 'nomad') {
+          endpoint =`${API_BASE_URL}/api/consultarNomad`;
+        }  else if (tipo === 'pares') {
+                    endpoint =`${API_BASE_URL}/api/consultarPares`;
+        } else {
+          toast.error('Corretora não selecionada ou inválida.');
+          return;
+        }
+    const url = `${endpoint}?${params.toString()}`;
     const response = await fetch(url, {
       headers: {
         Authorization: token,
@@ -132,6 +158,30 @@ const handleUpload = async (file, tipoRelatorio) => {
             element={
                 <PrivateRoute>
                     <ConsultaTransacaoPage
+                    registros={registros}
+                    setRegistros={setRegistros}
+                    onFilter={handleFilter}
+                    />
+                </PrivateRoute>
+                  }
+        />
+        <Route
+            path="/consultarNomad"
+            element={
+                <PrivateRoute>
+                    <ConsultaNomadPage
+                    registros={registros}
+                    setRegistros={setRegistros}
+                    onFilter={handleFilter}
+                    />
+                </PrivateRoute>
+                  }
+        />
+        <Route
+            path="/consultarPares"
+            element={
+                <PrivateRoute>
+                    <ConsultaParesPage
                     registros={registros}
                     setRegistros={setRegistros}
                     onFilter={handleFilter}

@@ -12,7 +12,7 @@ const UploadPage = ({ onUpload }) => {
       transition={{ duration: 0.5 }}
     >
       <Container className="mt-4">
-        <h2><FaUpload /> Upload de Arquivo CSV</h2>
+        <h2><FaUpload /> Upload de Arquivos</h2>
         <UploadForm onUpload={onUpload} />
       </Container>
     </motion.div>
