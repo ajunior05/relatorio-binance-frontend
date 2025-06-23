@@ -37,7 +37,7 @@ const ConsultaPage = ({ registros, setRegistros, onFilter }) => {
       <div className="container">
         <h2>Consulta de Ordens</h2>
         <FiltroForm setRegistros={setRegistros} onFilter={onFilter}  tipo="ordem"/>
-        <RelatorioOrdemTabela registros={registros} />
+        <RelatorioOrdemTabela registros={registros} setRegistros={setRegistros} />
       </div>
     </motion.div>
   );
